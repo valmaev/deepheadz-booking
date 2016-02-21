@@ -1,9 +1,24 @@
 
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Source", "Source", "{B773EEB3-6A3E-4312-BF5B-EC8AE9EAD3A5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{B7C31FCB-38CD-46CB-9CB6-E9708A5A0C45}"
+EndProject
+Project("{f2a71f9b-5d33-465a-a702-920d77279786}") = "DeepHeadz.Booking.Http.OwinHost", "Source\DeepHeadz.Booking.Http.OwinHost\DeepHeadz.Booking.Http.OwinHost.fsproj", "{C7CC4378-DD70-4A0A-8263-C51CF33C7688}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C7CC4378-DD70-4A0A-8263-C51CF33C7688}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C7CC4378-DD70-4A0A-8263-C51CF33C7688}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C7CC4378-DD70-4A0A-8263-C51CF33C7688}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C7CC4378-DD70-4A0A-8263-C51CF33C7688}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{C7CC4378-DD70-4A0A-8263-C51CF33C7688} = {B773EEB3-6A3E-4312-BF5B-EC8AE9EAD3A5}
 	EndGlobalSection
 EndGlobal
