@@ -6,6 +6,7 @@
 [Bb]in/
 packages/
 TestResults/
+Artifacts/
 
 # globs
 Makefile.in
@@ -41,3 +42,6 @@ Thumbs.db
 
 #Paket
 .paket/paket.exe
+
+#FAKE
+.fake/
