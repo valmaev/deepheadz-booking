@@ -14,14 +14,7 @@ Target "Build" (fun _ ->
     |> MSBuildRelease outputDir "Rebuild"
     |> Log "Build Output: ")
 
-Target "Stage" (fun _ ->
-    ExecProcess (fun info ->
-        info.FileName <- sprintf "%s/DeepHeadz.Booking.Http.OwinHost.exe" outputDir
-        info.WorkingDirectory <- ".") (TimeSpan.FromMinutes 1.0)
-    |> ignore)
-
 "Clean"
     ==> "Build"
-    ==> "Stage"
 
 RunTargetOrDefault "Build"

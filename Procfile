@@ -1,1 +1,1 @@
-web: sh build.sh Stage
+web: mono Source/DeepHeadz.Booking.Http.OwinHost/bin/Debug/DeepHeadz.Booking.Http.OwinHost.exe http://*:$PORT
