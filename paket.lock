@@ -30,3 +30,4 @@ NUGET
       Owin (>= 1.0)
     Newtonsoft.Json (8.0.2) - framework: >= net45, portable-wp80+win+net45+wp81+wpa81
     Owin (1.0)
+    RestSharp (105.2.3)
