@@ -6,6 +6,7 @@ open System.Reflection
 open System.Net.Http
 open System.Web.Http
 open Microsoft.Owin.Hosting
+open Newtonsoft.Json.Serialization
 
 type HelloWorldController() = 
     inherit ApiController()
@@ -14,6 +15,8 @@ type HelloWorldController() =
 type Startup() =
     member x.Configuration (app: IAppBuilder) =
         let config = new HttpConfiguration()
+        config.Formatters.JsonFormatter.SerializerSettings.ContractResolver <-
+            new CamelCasePropertyNamesContractResolver()
         let route =
             config.Routes.MapHttpRoute(
                 "Default",
