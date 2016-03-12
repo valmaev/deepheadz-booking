@@ -4,3 +4,6 @@ nuget FSharp.Core
 nuget FAKE
 nuget Microsoft.AspNet.WebApi.OwinSelfHost
 nuget RestSharp
+nuget Newtonsoft.Json
+nuget xunit framework: >= net45
+nuget xunit.runner.console framework: >= net45
