@@ -46,4 +46,18 @@ type Room = {
 
     CreatedAt: DateTimeOffset
     UpdatedAt: DateTimeOffset }
- 
+
+ [<CLIMutable>]
+ type RoomAvailability = {
+    Date: DateTimeOffset
+    
+    Available: bool
+    CanCheckIn: bool
+    CanCheckOut: bool
+
+    CurrencyCode: string
+    NightlyRate: decimal
+    WeeklyRate: decimal
+    MonthlyRate: decimal
+
+    MinStayInDays: int }

@@ -3,26 +3,24 @@
 open Owin
 open System
 open System.Reflection
-open System.Net.Http
 open System.Web.Http
 open Microsoft.Owin.Hosting
-open Newtonsoft.Json.Serialization
+open DeepHeadz.Booking.Core
+open DeepHeadz.Booking.Data.FileStore
+open DeepHeadz.Booking.Data.Json
+open DeepHeadz.Booking.Http.Infrastructure
 
-type HelloWorldController() = 
-    inherit ApiController()
-    member x.Get() = "Hello World!"
 
 type Startup() =
+    let roomStore = 
+        FileStore<Room>(
+            createSerializerWithDefaultSettings() :> ISerializer,
+            "RoomStore.json") 
     member x.Configuration (app: IAppBuilder) =
-        let config = new HttpConfiguration()
-        config.Formatters.JsonFormatter.SerializerSettings.ContractResolver <-
-            new CamelCasePropertyNamesContractResolver()
-        let route =
-            config.Routes.MapHttpRoute(
-                "Default",
-                "api/{controller}/{id}")
-        route.Defaults.Add("id", RouteParameter.Optional)
-        app.UseWebApi(config) |> ignore
+        new HttpConfiguration()
+        |> Configure (roomStore :> Room seq)
+        |> app.UseWebApi
+        |> ignore
 
 let rec printException (ex: Exception) =
     printfn 

@@ -17,6 +17,8 @@ Project("{f2a71f9b-5d33-465a-a702-920d77279786}") = "DeepHeadz.Booking.TestConso
 EndProject
 Project("{f2a71f9b-5d33-465a-a702-920d77279786}") = "DeepHeadz.Booking.Roomorama.Daemon", "Source\DeepHeadz.Booking.Roomorama.Daemon\DeepHeadz.Booking.Roomorama.Daemon.fsproj", "{F59775B9-E9B6-449E-A540-9A881F669238}"
 EndProject
+Project("{f2a71f9b-5d33-465a-a702-920d77279786}") = "DeepHeadz.Booking.Http", "Source\DeepHeadz.Booking.Http\DeepHeadz.Booking.Http.fsproj", "{CACD8FFE-0FE3-4EA1-B8CB-4A2528F10B1D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,6 +49,10 @@ Global
 		{F59775B9-E9B6-449E-A540-9A881F669238}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F59775B9-E9B6-449E-A540-9A881F669238}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F59775B9-E9B6-449E-A540-9A881F669238}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CACD8FFE-0FE3-4EA1-B8CB-4A2528F10B1D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CACD8FFE-0FE3-4EA1-B8CB-4A2528F10B1D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CACD8FFE-0FE3-4EA1-B8CB-4A2528F10B1D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CACD8FFE-0FE3-4EA1-B8CB-4A2528F10B1D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{C7CC4378-DD70-4A0A-8263-C51CF33C7688} = {B773EEB3-6A3E-4312-BF5B-EC8AE9EAD3A5}
@@ -55,6 +61,7 @@ Global
 		{B318F72D-4535-45E7-9023-B324FB72E7A3} = {B7C31FCB-38CD-46CB-9CB6-E9708A5A0C45}
 		{438C4B9D-517F-4029-ACFD-D3A47EAEE2D8} = {B7C31FCB-38CD-46CB-9CB6-E9708A5A0C45}
 		{F59775B9-E9B6-449E-A540-9A881F669238} = {B773EEB3-6A3E-4312-BF5B-EC8AE9EAD3A5}
+		{CACD8FFE-0FE3-4EA1-B8CB-4A2528F10B1D} = {B773EEB3-6A3E-4312-BF5B-EC8AE9EAD3A5}
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		version = 
