@@ -5,7 +5,27 @@ open System.Collections.Generic
 open System.Globalization
 open RestSharp
 open RestSharp.Authenticators
-open Newtonsoft.Json
+open DeepHeadz.Booking.Core
+open DeepHeadz.Booking.Core.Serialization
+
+[<CLIMutable>]
+type DestinationResult = {
+    id: int
+    url_name: string
+    url_path: string
+    ``type``: string
+    name: string
+    long_name: string
+    url: string
+    currency_code: string
+    currency_display: string
+    searchable: bool }
+
+[<CLIMutable>]
+type DestinationsResponse = {
+    result: DestinationResult array
+    count: int
+    status: int }
 
 [<CLIMutable>]
 type HostResult = {
@@ -125,6 +145,9 @@ type RoomAvailabilityResult = {
 [<CLIMutable>]
 type RoomAvailabilityResponse = { Result: RoomAvailabilityResult array }
 
+let serializer = (Json.createSerializerWithDefaultSettings() :> ISerializer)
+let deserialize = serializer.DeserializeFromUtf8String
+
 let toIsoDate (offset: DateTimeOffset option) = 
     match offset with
     | Some x -> x.ToString "yyyy-MM-dd"
@@ -137,38 +160,38 @@ let roomoramaClient =
             accessToken = "EnG4TbobhqysUi6FDovARXn7ouisvwZ2mmX5bqstI")
     client
 
-let getDestinations =
+let getDestinations(): DestinationsResponse =
     let request = RestRequest("/destinations", Method.GET)
     let response = roomoramaClient.Execute request
-    response
+    deserialize response.Content
 
-let getRoomsByDestinationId (destinationId: int, page: int) =
+let getRoomsByDestinationId (destinationId: int) (page: int): RoomsResponse =
     let request = 
         RestRequest("/rooms", Method.GET)
             .AddParameter("destination_id", destinationId)
             .AddParameter("limit", 100)
             .AddParameter("page", page)
     let response = roomoramaClient.Execute request
-    JsonConvert.DeserializeObject<RoomsResponse> response.Content
+    deserialize response.Content
 
-let getRoomsByDestinationName (destination: string, page: int) =
+let getRoomsByDestinationName (destination: string) (page: int): RoomsResponse =
     let request = 
         RestRequest("/rooms", Method.GET)
             .AddParameter("destination", destination)
             .AddParameter("limit", 100)
             .AddParameter("page", page)
     let response = roomoramaClient.Execute request
-    JsonConvert.DeserializeObject<RoomsResponse> response.Content
+    deserialize response.Content
 
-let getRoom (roomId: int) =
+let getRoom (roomId: int): RoomResponse =
     let request = 
         RestRequest("/rooms/{room_id}", Method.GET)
             .AddUrlSegment("room_id", roomId.ToString(CultureInfo.InvariantCulture))
             .AddParameter("currency", "USD")
     let response = roomoramaClient.Execute request
-    JsonConvert.DeserializeObject<RoomResponse> response.Content
+    deserialize response.Content
 
-let getRoomAvailability request =
+let getRoomAvailability (request): RoomAvailabilityResponse =
     let restRequest = 
         RestRequest("/rooms/{room_id}/availabilities", Method.GET)
             .AddUrlSegment("room_id", request.room_id.ToString(CultureInfo.InvariantCulture))
@@ -176,4 +199,4 @@ let getRoomAvailability request =
             .AddParameter("end_date", request.end_date |> toIsoDate)
             .AddParameter("currency", "USD")
     let response = roomoramaClient.Execute restRequest
-    JsonConvert.DeserializeObject<RoomAvailabilityResponse> response.Content
+    deserialize response.Content

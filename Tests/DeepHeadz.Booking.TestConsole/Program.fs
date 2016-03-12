@@ -1,44 +1,50 @@
 ﻿module DeepHeadz.Booking.TestConsole.Host
 
 open System
+open System.IO
 open DeepHeadz.Booking.Core
 open DeepHeadz.Booking.Core.Serialization
 open DeepHeadz.Booking.Data.FileStore
 open DeepHeadz.Booking.Data.Json
+open DeepHeadz.Booking.Data.Roomorama
+
 
 [<EntryPoint>]
 let main argv = 
-    let serializer = createSerializerWithDefaultSettings() :> ISerializer
+    //let serializer = createSerializerWithDefaultSettings() :> ISerializer
 
-    let room = { 
-        Id = 1
-        Title = "Room"
-        Description = "Room description" 
-        Type = "apartment"
-        NumberOfRooms = 2
-        MaxGuests = 1
+    //let room = { 
+    //    Id = 1
+    //    Title = "Room"
+    //    Description = "Room description" 
+    //    Type = "apartment"
+    //    NumberOfRooms = 2
+    //    MaxGuests = 1
 
-        CountryCode = "RU"
-        City = "Moscow"
-        Latitude = 11.34
-        Longitude = 32.55
-        PricePerNight = 44.55
-        CurrencyCode = "US"
-        Amenities = []
-        CancellationPolicy = None
-        HostId = 12
-        HostName = "host"
-        HostEmail = "qwe@qwe.com"
-        HostUrl = "erwe"
+    //    CountryCode = "RU"
+    //    City = "Moscow"
+    //    Latitude = 11.34
+    //    Longitude = 32.55
+    //    PricePerNight = 44.55
+    //    CurrencyCode = "US"
+    //    Amenities = []
+    //    CancellationPolicy = None
+    //    HostId = 12
+    //    HostName = "host"
+    //    HostEmail = "qwe@qwe.com"
+    //    HostUrl = "erwe"
 
-        CreatedAt = DateTimeOffset.Now
-        UpdatedAt = DateTimeOffset.Now} 
+    //    CreatedAt = DateTimeOffset.Now
+    //    UpdatedAt = DateTimeOffset.Now} 
 
 
-    let serializedRoom = serializer.SerializeAsUtf8String room
-    printfn "%s" serializedRoom
-    let fileStore = RoomFileStore(serializer, "Rooms.json")
+    //let serializedRoom = serializer.SerializeAsUtf8String room
+    //printfn "%s" serializedRoom
+    //let fileStore = RoomFileStore(serializer, "Rooms.json")
 
-    printfn "%A" fileStore.Rooms
+    //printfn "%A" fileStore.Rooms
+
+    let rooms = getRoomsByDestinationName "Moscow" 1
+    printfn "%A" rooms
 
     0
