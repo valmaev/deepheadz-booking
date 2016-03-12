@@ -47,7 +47,7 @@
       <Link>SolutionAssemblyInfo.fs</Link>
     </Compile>
     <Compile Include="AssemblyInfo.fs" />
-    <Compile Include="RoomStoreTestCase.fs" />
+    <Compile Include="FileStoreTestCase.fs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="paket.references" />

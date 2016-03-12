@@ -87,6 +87,7 @@ type RoomDetailedResult = {
     images: Image array
     id: int
     title: string
+    ``type``: string
     subtype: string
     url: string
     num_rooms: int
@@ -200,3 +201,66 @@ let getRoomAvailability (request): RoomAvailabilityResponse =
             .AddParameter("currency", "USD")
     let response = roomoramaClient.Execute restRequest
     deserialize response.Content
+
+let private isConditionAllowed (conditions: Dictionary<string, string>) name =
+    match conditions.TryGetValue name with
+    | (true, x) -> bool.Parse x
+    | _ -> false
+
+let private toInt s =
+    match Int32.TryParse s with
+    | (true, x) -> x
+    | _ -> 0
+
+let toRoom (roomResult: RoomDetailedResult): Room = {
+        Id = roomResult.id
+        Title = roomResult.title
+        Description = roomResult.description
+        Type = roomResult.``type``
+        Subtype = roomResult.subtype
+        Surface = roomResult.surface
+        Floor = roomResult.floor |> toInt
+        NumberOfRooms = roomResult.num_rooms
+        NumberOfBathrooms = int roomResult.num_bathrooms 
+        NumberOfDoubleBeds = roomResult.num_double_beds
+        NumberOfSofaBeds = roomResult.num_sofa_beds
+        MinStayInDays = roomResult.min_stay
+        MaxGuests = roomResult.max_guests
+
+        CountryCode = roomResult.country_code
+        City = roomResult.city
+        Province = roomResult.province
+        Latitude = float roomResult.lat
+        Longitude = float roomResult.lng
+
+        PricePerNight = decimal roomResult.price
+        CurrencyCode = roomResult.currency_code
+
+        Amenities = 
+            roomResult.amenities.Split(',') 
+            |> Seq.map (fun s -> s.Trim())
+        Services = 
+            roomResult.services
+            |> Seq.filter (fun s -> s.Value.available)
+            |> Seq.map (fun s -> s.Key)
+        SmokingAllowed = isConditionAllowed roomResult.conditions "smoking"
+        PetsAllowed = isConditionAllowed roomResult.conditions "pets"
+
+        CheckInTime = roomResult.check_in_time
+        CheckOutTime = roomResult.check_out_time
+        CancellationPolicy =
+            match roomResult.cancellation_policy with
+            | null -> ""
+            | x -> x
+
+        Images = roomResult.images |> Seq.map (fun i -> i.image)
+        Url = roomResult.url
+
+        HostId = roomResult.host.id
+        HostName = roomResult.host.display
+        HostEmail = "valmaev@aquivalabs.com"
+        HostUrl = roomResult.host.url
+
+        CreatedAt = roomResult.created_at
+        UpdatedAt = roomResult.updated_at
+    }

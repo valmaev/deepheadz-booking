@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="paket.references" />
+    <None Include="room-store.json" />
   </ItemGroup>
   <Import Project="$(FSharpTargetsPath)" />
   <Choose>

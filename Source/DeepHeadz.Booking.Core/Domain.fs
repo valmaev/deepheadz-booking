@@ -8,20 +8,36 @@ type Room = {
     Title: string
     Description: string
     Type: string
+    Subtype: string
+    Surface: float
+    Floor: int
     NumberOfRooms: int
+    NumberOfBathrooms: int
+    NumberOfDoubleBeds: int
+    NumberOfSofaBeds: int
+    MinStayInDays: int
     MaxGuests: int
 
     CountryCode: string
     City: string
+    Province: string
     Latitude: float
     Longitude: float
 
-    PricePerNight: float
+    PricePerNight: decimal
     CurrencyCode: string
 
     Amenities: string seq
+    Services: string seq
+    SmokingAllowed: bool
+    PetsAllowed: bool
 
-    CancellationPolicy: string option
+    CheckInTime: string
+    CheckOutTime: string
+    CancellationPolicy: string
+
+    Images: string seq
+    Url: string
 
     HostId: int
     HostName: string

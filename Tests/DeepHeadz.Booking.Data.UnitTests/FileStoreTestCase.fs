@@ -6,11 +6,11 @@ open DeepHeadz.Booking.Core
 open DeepHeadz.Booking.Data.FileStore
 open DeepHeadz.Booking.Data.Json
 
-type RoomStoreTestCase() = 
+type FileStoreTestCase() = 
 
     let serializer = createSerializerWithDefaultSettings() :> ISerializer
-    let createSut fileName = RoomFileStore(serializer, fileName)
+    let createSut fileName = FileStore<Room>(serializer, fileName)
 
-    let [<Fact>] ``Rooms should always return all deserialized rooms from file``() =
+    let [<Fact>] ``Data should always return all deserialized data from file``() =
         let sut = createSut "Rooms.json"
-        Assert.Equal(2, sut.Rooms.Count())
+        Assert.Equal(2, sut.Data.Count())

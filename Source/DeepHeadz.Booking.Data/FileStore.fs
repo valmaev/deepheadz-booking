@@ -4,20 +4,26 @@ open System.Collections
 open System.IO
 open DeepHeadz.Booking.Core
 
-let toEnumerator(s: seq<'T>) = s.GetEnumerator()
 
-type RoomInMemoryStore(seed: Room seq) =
-    interface Room seq with
+type InMemoryStore<'a>(seed: 'a seq) =
+    interface 'a seq with
         member x.GetEnumerator() = seed.GetEnumerator()
-        member x.GetEnumerator() = (x :> Room seq).GetEnumerator() :> IEnumerator
+        member x.GetEnumerator() = (x :> 'a seq).GetEnumerator() :> IEnumerator
 
-type RoomFileStore(serializer: ISerializer, fileName: string) =
-    let readRooms (fileName): Room seq = 
+type FileStore<'a>(serializer: ISerializer, fileName: string) =
+    let readData(): 'a seq = 
         use stream = new FileStream(fileName, FileMode.OpenOrCreate, FileAccess.Read)
         serializer.Deserialize stream
+    
+    let writeData (data: 'a seq) =
+        use stream = new FileStream(fileName, FileMode.Create, FileAccess.Write)
+        serializer.Serialize data stream
 
-    member val Rooms = readRooms fileName with get 
+    member val Data = readData() with get 
 
-    interface Room seq with
-        member x.GetEnumerator() = x.Rooms.GetEnumerator()
-        member x.GetEnumerator() = (x :> Room seq).GetEnumerator() :> IEnumerator
+    interface 'a seq with
+        member x.GetEnumerator() = x.Data.GetEnumerator()
+        member x.GetEnumerator() = (x :> 'a seq).GetEnumerator() :> IEnumerator
+
+    interface IWriter<'a seq> with
+        member x.Write data = writeData data
