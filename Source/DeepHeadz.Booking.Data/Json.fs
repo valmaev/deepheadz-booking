@@ -16,7 +16,7 @@ type JsonNetSerializer(settings: JsonSerializerSettings) =
                 serializer.Serialize(jsonWriter, value)
             with
             | :? JsonException as ex ->
-                raise (new SerializationException( "Exception occurred while serializing", ex))
+                raise (new SerializationException("Exception occurred while serializing", ex))
 
         member x.Deserialize input =
             try
@@ -26,7 +26,7 @@ type JsonNetSerializer(settings: JsonSerializerSettings) =
                 serializer.Deserialize<'a> jsonReader
             with
             | :? JsonException as ex ->
-                raise (new SerializationException( "Exception occurred while deserializing", ex))
+                raise (new SerializationException("Exception occurred while deserializing", ex))
 
 type PreservingDictionaryCasingContractResolver() =
     inherit CamelCasePropertyNamesContractResolver()

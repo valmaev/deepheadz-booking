@@ -69,7 +69,7 @@ module Spatial =
     [<Measure>] type km
      
     let haversine (θ: float<rad>) = 0.5 * (1.0 - Math.Cos(θ / 1.0<rad>))
-    let radPerDeg =  (Math.PI / 180.0) * 1.0<rad/deg>
+    let radPerDeg = (Math.PI / 180.0) * 1.0<rad/deg>
      
     type Coordinate(latitude: float<deg>, longitude: float<deg>) =
         member this.φ = latitude * radPerDeg
