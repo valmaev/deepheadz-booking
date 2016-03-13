@@ -128,7 +128,8 @@ type RoomResponse = { result: RoomDetailedResult }
 type RoomAvailabilityRequest = {
     room_id: int
     start_date: DateTimeOffset option
-    end_date: DateTimeOffset option }
+    end_date: DateTimeOffset option
+    since: DateTimeOffset option }
 
 [<CLIMutable>]
 type RoomAvailabilityResult = {
@@ -144,7 +145,7 @@ type RoomAvailabilityResult = {
     date: DateTimeOffset }
  
 [<CLIMutable>]
-type RoomAvailabilityResponse = { Result: RoomAvailabilityResult array }
+type RoomAvailabilityResponse = { result: RoomAvailabilityResult array }
 
 let serializer = (Json.createSerializerWithDefaultSettings() :> ISerializer)
 let deserialize = serializer.DeserializeFromUtf8String
@@ -192,15 +193,16 @@ let getRoom (roomId: int): RoomResponse =
     let response = roomoramaClient.Execute request
     deserialize response.Content
 
-let getRoomAvailability (request): RoomAvailabilityResponse =
+let getRoomAvailability (request): int * RoomAvailabilityResponse =
     let restRequest = 
         RestRequest("/rooms/{room_id}/availabilities", Method.GET)
             .AddUrlSegment("room_id", request.room_id.ToString(CultureInfo.InvariantCulture))
             .AddParameter("start_date", request.start_date |> toIsoDate)
             .AddParameter("end_date", request.end_date |> toIsoDate)
+            .AddParameter("since", request.since |> toIsoDate)
             .AddParameter("currency", "USD")
     let response = roomoramaClient.Execute restRequest
-    deserialize response.Content
+    (request.room_id, deserialize response.Content)
 
 let private isConditionAllowed (conditions: Dictionary<string, string>) name =
     match conditions.TryGetValue name with
@@ -264,3 +266,25 @@ let toRoom (roomResult: RoomDetailedResult): Room = {
         CreatedAt = roomResult.created_at
         UpdatedAt = roomResult.updated_at
     }
+
+let toRoomAvailability roomId (result: RoomAvailabilityResult): RoomAvailability = {
+    Date = result.date
+    RoomId = roomId
+    Available = result.``available?``
+    CanCheckIn = result.``can_checkin?``
+    CanCheckOut = result.``can_checkout?``
+    CurrencyCode = result.currency_code
+    NightlyRate = decimal result.nightly_rate
+    WeeklyRate = decimal result.weekly_rate
+    MonthlyRate = decimal result.monthly_rate
+    MinStayInDays = result.minimum_stay }
+
+let toRoomAvailabilityFromSeq roomId (results: RoomAvailabilityResult seq) =
+    results
+    |> Seq.map (fun r -> toRoomAvailability roomId r)
+
+let toRoomAvailabilityByDays (availabilities: RoomAvailability seq) =
+    availabilities 
+    |> Seq.groupBy (fun a -> a.Date)
+    |> dict
+   

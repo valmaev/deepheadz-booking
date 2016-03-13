@@ -2,6 +2,8 @@
 
 open Owin
 open System
+open System.Collections.Generic
+open System.IO
 open System.Reflection
 open System.Web.Http
 open Microsoft.Owin.Hosting
@@ -10,15 +12,16 @@ open DeepHeadz.Booking.Data.FileStore
 open DeepHeadz.Booking.Data.Json
 open DeepHeadz.Booking.Http.Infrastructure
 
-
 type Startup() =
-    let roomStore = 
-        FileStore<Room>(
-            createSerializerWithDefaultSettings() :> ISerializer,
-            "RoomStore.json") 
+    let serializer = createSerializerWithDefaultSettings() :> ISerializer
+    let roomStore = FileStore<Room>(serializer, "RoomStore.json")
+    let roomAvailabilities =
+        use stream = new FileStream("RoomAvailabilityStore.json", FileMode.OpenOrCreate, FileAccess.Read)
+        serializer.Deserialize<IDictionary<int, IDictionary<DateTimeOffset, RoomAvailability seq>>> stream
+
     member x.Configuration (app: IAppBuilder) =
         new HttpConfiguration()
-        |> Configure (roomStore :> Room seq)
+        |> Configure (roomStore :> Room seq) roomAvailabilities
         |> app.UseWebApi
         |> ignore
 

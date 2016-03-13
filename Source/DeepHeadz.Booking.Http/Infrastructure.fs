@@ -7,12 +7,12 @@ open System.Web.Http.Dispatcher
 open DeepHeadz.Booking.Data.Json
 open DeepHeadz.Booking.Http.Controllers
 
-type CompositionRoot(rooms) =
+type CompositionRoot(rooms, roomAvailabilities) =
     interface IHttpControllerActivator with
         member x.Create(request, controllerDescriptor, controllerType) =
             match controllerType with
             | t when t = typeof<RoomsController> ->
-                new RoomsController(rooms) :> IHttpController
+                new RoomsController(rooms, roomAvailabilities) :> IHttpController
             | t when t = typeof<HomeController> ->
                 new HomeController() :> IHttpController
             | _ -> raise
@@ -30,10 +30,10 @@ let ConfigureRoutes (config: HttpConfiguration) =
     |> ignore
     config
                     
-let ConfigureServices rooms (config: HttpConfiguration) =
+let ConfigureServices rooms roomAvailabilities (config: HttpConfiguration) =
     config.Services.Replace(
         typeof<IHttpControllerActivator>,
-        new CompositionRoot(rooms))
+        new CompositionRoot(rooms, roomAvailabilities))
     config
 
 let ConfigureFormatting (config: HttpConfiguration) =
@@ -42,8 +42,8 @@ let ConfigureFormatting (config: HttpConfiguration) =
         PreservingDictionaryCasingContractResolver()
     config
 
-let Configure rooms config = 
+let Configure rooms roomAvailabilities config = 
     config
     |> ConfigureRoutes
-    |> ConfigureServices rooms
+    |> ConfigureServices rooms roomAvailabilities
     |> ConfigureFormatting

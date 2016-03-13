@@ -53,6 +53,9 @@
     <None Include="RoomStore.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="RoomAvailabilityStore.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DeepHeadz.Booking.Core\DeepHeadz.Booking.Core.fsproj">
