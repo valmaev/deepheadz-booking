@@ -6,6 +6,7 @@ open System.Collections.Generic
 open System.IO
 open System.Reflection
 open System.Web.Http
+open Microsoft.Owin.Cors
 open Microsoft.Owin.Hosting
 open DeepHeadz.Booking.Core
 open DeepHeadz.Booking.Data.FileStore
@@ -20,11 +21,11 @@ type Startup() =
         serializer.Deserialize<IDictionary<int, IDictionary<DateTimeOffset, RoomAvailability seq>>> stream
 
     member x.Configuration (app: IAppBuilder) =
+        app.UseCors CorsOptions.AllowAll |> ignore
         new HttpConfiguration()
         |> Configure (roomStore :> Room seq) roomAvailabilities
         |> app.UseWebApi
         |> ignore
-
 let rec printException (ex: Exception) =
     printfn 
         "%s Message: %s \nStackTrace: %s" 
