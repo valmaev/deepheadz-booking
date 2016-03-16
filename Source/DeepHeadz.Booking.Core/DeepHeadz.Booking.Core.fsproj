@@ -41,11 +41,12 @@
     <Reference Include="System.Numerics" />
   </ItemGroup>
   <ItemGroup>
-	<Compile Include="..\..\SolutionAssemblyInfo.fs">
+    <Compile Include="..\..\SolutionAssemblyInfo.fs">
       <Link>SolutionAssemblyInfo.fs</Link>
     </Compile>
     <Compile Include="AssemblyInfo.fs" />
     <Compile Include="Services.fs" />
+    <Compile Include="Spatial.fs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Domain.fs" />

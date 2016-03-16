@@ -2,6 +2,7 @@
 open System.IO
 open System.Collections.Generic
 open DeepHeadz.Booking.Core
+open DeepHeadz.Booking.Core.Domain
 open DeepHeadz.Booking.Core.Serialization
 open DeepHeadz.Booking.Data.FileStore
 open DeepHeadz.Booking.Data.Json

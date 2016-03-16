@@ -4,7 +4,6 @@ open System.Collections
 open System.IO
 open DeepHeadz.Booking.Core
 
-
 type InMemoryStore<'a>(seed: 'a seq) =
     interface 'a seq with
         member x.GetEnumerator() = seed.GetEnumerator()

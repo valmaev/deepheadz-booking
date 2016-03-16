@@ -7,6 +7,7 @@ open System.Net
 open System.Net.Http
 open System.Web.Http
 open DeepHeadz.Booking.Core
+open DeepHeadz.Booking.Core.Domain
 open DeepHeadz.Booking.Core.Spatial
 open DeepHeadz.Booking.Http.Requests
 

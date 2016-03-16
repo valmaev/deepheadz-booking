@@ -3,11 +3,11 @@
 open System.Linq
 open Xunit
 open DeepHeadz.Booking.Core
+open DeepHeadz.Booking.Core.Domain
 open DeepHeadz.Booking.Data.FileStore
 open DeepHeadz.Booking.Data.Json
 
 type FileStoreTestCase() = 
-
     let serializer = createSerializerWithDefaultSettings() :> ISerializer
     let createSut fileName = FileStore<Room>(serializer, fileName)
 

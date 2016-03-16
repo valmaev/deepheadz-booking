@@ -3,6 +3,7 @@
 open System
 open System.Collections.Generic
 open DeepHeadz.Booking.Core
+open DeepHeadz.Booking.Core.Domain
 open DeepHeadz.Booking.Core.Spatial
 
 [<CLIMutable>]

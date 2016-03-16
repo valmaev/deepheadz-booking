@@ -9,6 +9,7 @@ open System.Web.Http
 open Microsoft.Owin.Cors
 open Microsoft.Owin.Hosting
 open DeepHeadz.Booking.Core
+open DeepHeadz.Booking.Core.Domain
 open DeepHeadz.Booking.Data.FileStore
 open DeepHeadz.Booking.Data.Json
 open DeepHeadz.Booking.Http.Infrastructure
@@ -21,11 +22,10 @@ type Startup() =
         serializer.Deserialize<IDictionary<int, IDictionary<DateTimeOffset, RoomAvailability seq>>> stream
 
     member x.Configuration (app: IAppBuilder) =
-        app.UseCors CorsOptions.AllowAll |> ignore
-        new HttpConfiguration()
-        |> Configure (roomStore :> Room seq) roomAvailabilities
-        |> app.UseWebApi
-        |> ignore
+        let config = 
+            new HttpConfiguration()
+            |> Configure (roomStore :> Room seq) roomAvailabilities
+        app.UseCors(CorsOptions.AllowAll).UseWebApi(config) |> ignore
 
 let rec printException (ex: Exception) =
     printfn

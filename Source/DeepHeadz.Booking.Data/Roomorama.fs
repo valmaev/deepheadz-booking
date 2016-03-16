@@ -6,6 +6,7 @@ open System.Globalization
 open RestSharp
 open RestSharp.Authenticators
 open DeepHeadz.Booking.Core
+open DeepHeadz.Booking.Core.Domain
 open DeepHeadz.Booking.Core.Serialization
 
 [<CLIMutable>]
