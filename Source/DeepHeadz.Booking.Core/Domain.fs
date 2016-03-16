@@ -62,7 +62,7 @@ type RoomAvailability = {
     MonthlyRate: decimal
 
     MinStayInDays: int }
-
+   
 module Spatial =
     [<Measure>] type deg
     [<Measure>] type rad
@@ -72,8 +72,10 @@ module Spatial =
     let radPerDeg = (Math.PI / 180.0) * 1.0<rad/deg>
      
     type Coordinate(latitude: float<deg>, longitude: float<deg>) =
-        member this.φ = latitude * radPerDeg
-        member this.ψ = longitude * radPerDeg
+        member x.Latitude = latitude
+        member x.Longitude = longitude
+        member x.φ = latitude * radPerDeg
+        member x.ψ = longitude * radPerDeg
      
     let earthRadius = 6372.8<km>
      

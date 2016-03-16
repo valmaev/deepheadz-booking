@@ -26,11 +26,12 @@ type Startup() =
         |> Configure (roomStore :> Room seq) roomAvailabilities
         |> app.UseWebApi
         |> ignore
+
 let rec printException (ex: Exception) =
-    printfn 
-        "%s Message: %s \nStackTrace: %s" 
+    printfn
+        "%s Message: %s \nStackTrace: %s"
         (ex.GetType().FullName)
-        ex.Message 
+        ex.Message
         ex.StackTrace
     if ex.InnerException <> null
     then printException ex.InnerException
@@ -40,18 +41,18 @@ let main argv =
     try
         let hostAddress = if argv.Length = 0 then "http://localhost:8080" else argv.[0]
         use server = WebApp.Start<Startup>(hostAddress)
-        printfn 
-            "%s \n%s v.%s \nServer started at %s. \nPress Ctrl+C to shutdown..."  
+        printfn
+            "%s \n%s v.%s \nServer started at %s. \nPress Ctrl+C to shutdown..."
             @"
 ▓█████▄ ▓█████ ▓█████  ██▓███   ██░ ██ ▓█████ ▄▄▄      ▓█████▄ ▒███████▒
  ▒██▀ ██▌▓█   ▀ ▓█   ▀ ▓██░  ██▒▓██░ ██▒▓█   ▀▒████▄    ▒██▀ ██▌▒ ▒ ▒ ▄▀░
- ░██   █▌▒███   ▒███   ▓██░ ██▓▒▒██▀▀██░▒███  ▒██  ▀█▄  ░██   █▌░ ▒ ▄▀▒░ 
+ ░██   █▌▒███   ▒███   ▓██░ ██▓▒▒██▀▀██░▒███  ▒██  ▀█▄  ░██   █▌░ ▒ ▄▀▒░
  ░▓█▄   ▌▒▓█  ▄ ▒▓█  ▄ ▒██▄█▓▒ ▒░▓█ ░██ ▒▓█  ▄░██▄▄▄▄██ ░▓█▄   ▌  ▄▀▒   ░
  ░▒████▓ ░▒████▒░▒████▒▒██▒ ░  ░░▓█▒░██▓░▒████▒▓█   ▓██▒░▒████▓ ▒███████▒
   ▒▒▓  ▒ ░░ ▒░ ░░░ ▒░ ░▒▓▒░ ░  ░ ▒ ░░▒░▒░░ ▒░ ░▒▒   ▓▒█░ ▒▒▓  ▒ ░▒▒ ▓░▒░▒
   ░ ▒  ▒  ░ ░  ░ ░ ░  ░░▒ ░      ▒ ░▒░ ░ ░ ░  ░ ▒   ▒▒ ░ ░ ▒  ▒ ░░▒ ▒ ░ ▒
   ░ ░  ░    ░      ░   ░░        ░  ░░ ░   ░    ░   ▒    ░ ░  ░ ░ ░ ░ ░ ░
-    ░       ░  ░   ░  ░          ░  ░  ░   ░  ░     ░  ░   ░      ░ ░    
+    ░       ░  ░   ░  ░          ░  ░  ░   ░  ░     ░  ░   ░      ░ ░
   ░                                                      ░      ░        "
             (Assembly.GetExecutingAssembly().GetName().Name)
             (Assembly.GetExecutingAssembly().GetName().Version.ToString())

@@ -3,52 +3,41 @@
 open System
 open System.Collections.Generic
 open System.Linq
+open System.Net
+open System.Net.Http
 open System.Web.Http
 open DeepHeadz.Booking.Core
 open DeepHeadz.Booking.Core.Spatial
+open DeepHeadz.Booking.Http.Requests
 
 type HomeController() =
     inherit ApiController()
-    member x.Get() = "Welcome to DeepHeadz.Booking.Http API!"
-
-[<CLIMutable>]
-type AvailabilityResponse = { DaysUnavailable: DateTimeOffset seq; Ratio: float }
-[<CLIMutable>]
-type RoomsResponse = { Room: Room; Availability: AvailabilityResponse }
+    member x.Get() = sprintf "Welcome to %s API!" (x.GetType().Namespace)
 
 type RoomsController
     (rooms: Room seq, 
      roomAvailabilities: IDictionary<int, IDictionary<DateTimeOffset, RoomAvailability seq>>) = 
     inherit ApiController()
     let roomsInMemory = rooms |> Seq.toList
-    member x.Get
-        (latitude: float<deg>, 
-         longitude: float<deg>, 
-         radius: float<km>, 
-         checkIn: DateTimeOffset,
-         checkOut: DateTimeOffset,
-         minAvailabilityRatio: float) =
-        let center = Coordinate(latitude = latitude, longitude = longitude)
-        let bookingLength = (checkOut - checkIn).Days
-        roomGeoSearchByCircle center radius roomsInMemory
-        |> Seq.map (fun r -> 
-            { 
-                Room = r; 
-                Availability = 
-                    match roomAvailabilities.TryGetValue r.Id with
-                    | (true, v) -> 
-                        let daysUnavailable = 
-                            v.Keys
-                            |> Seq.filter (fun d -> 
-                                (d >= checkIn) 
-                                && (d <= checkOut) 
-                                && ((v.[d] |> Seq.exactlyOne).Available <> true))
-                        {
-                            DaysUnavailable = daysUnavailable
-                            Ratio = 
-                                (float ((bookingLength - (daysUnavailable |> Seq.length))) 
-                                / float bookingLength)
-                        }
-                    | (false, v) -> { DaysUnavailable = v.Keys; Ratio = 0.0 }
-            })
-        |> Seq.filter (fun a -> a.Availability.Ratio >= minAvailabilityRatio)
+
+    member x.Get([<FromUri>] request) =
+        if request.Latitude < -90.0<deg> || request.Latitude  > 90.0<deg>
+        then x.Request.CreateResponse(HttpStatusCode.BadRequest, "Latitude should be in range [-90.0, 90.0]")
+
+        elif request.Longitude < -180.0<deg> || request.Longitude > 180.0<deg>
+        then x.Request.CreateResponse(HttpStatusCode.BadRequest, "Longitude should be in range [-180.0, 180.0]")
+
+        elif request.CheckIn > request.CheckOut 
+        then x.Request.CreateResponse(HttpStatusCode.BadRequest, "CheckIn date should be less than checkOut date")
+
+        elif request.MinAvailabilityRatio < 0.0 || request.MinAvailabilityRatio > 1.0
+        then x.Request.CreateResponse(HttpStatusCode.BadRequest, "MinAvailabilityRatio should be in range [0.0, 1.0]")
+
+        else
+        let center = Coordinate(latitude = request.Latitude, longitude = request.Longitude)
+        let response =
+            roomGeoSearchByCircle center request.Radius roomsInMemory
+            |> Seq.map (toRoomsResponse roomAvailabilities request)
+            |> Seq.filter (fun room -> room.Availability.Ratio >= request.MinAvailabilityRatio)
+            |> toRoomsByMaxGuestsResponse
+        x.Request.CreateResponse(HttpStatusCode.OK, response)
