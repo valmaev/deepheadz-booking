@@ -1,0 +1,49 @@
+<div class="text-center">
+    <pre id="logo">
+▓█████▄ ▓█████ ▓█████  ██▓███   ██░ ██ ▓█████ ▄▄▄      ▓█████▄ ▒███████▒
+▒██▀ ██▌▓█   ▀ ▓█   ▀ ▓██░  ██▒▓██░ ██▒▓█   ▀▒████▄    ▒██▀ ██▌▒ ▒ ▒ ▄▀░
+░██   █▌▒███   ▒███   ▓██░ ██▓▒▒██▀▀██░▒███  ▒██  ▀█▄  ░██   █▌░ ▒ ▄▀▒░
+░▓█▄   ▌▒▓█  ▄ ▒▓█  ▄ ▒██▄█▓▒ ▒░▓█ ░██ ▒▓█  ▄░██▄▄▄▄██ ░▓█▄   ▌  ▄▀▒   ░
+░▒████▓ ░▒████▒░▒████▒▒██▒ ░  ░░▓█▒░██▓░▒████▒▓█   ▓██▒░▒████▓ ▒███████▒
+▒▒▓  ▒ ░░ ▒░ ░░░ ▒░ ░▒▓▒░ ░  ░ ▒ ░░▒░▒░░ ▒░ ░▒▒   ▓▒█░ ▒▒▓  ▒ ░▒▒ ▓░▒░▒
+░ ▒  ▒  ░ ░  ░ ░ ░  ░░▒ ░      ▒ ░▒░ ░ ░ ░  ░ ▒   ▒▒ ░ ░ ▒  ▒ ░░▒ ▒ ░ ▒
+░ ░  ░    ░      ░   ░░        ░  ░░ ░   ░    ░   ▒    ░ ░  ░ ░ ░ ░ ░ ░
+░       ░  ░   ░  ░          ░  ░  ░   ░  ░     ░  ░   ░      ░ ░
+░                                                      ░      ░
+    </pre>
+</div>
+
+<h3 class="text-center">Choose your <s>destiny</s> destination</h3>
+<form name="registration_form" id="registration_form" class="form-horizontal">
+    <div class="form-group">
+        <div class="col-sm-3">
+            <label for="checkin" class="sr-only"></label>
+            <input id="checkin" class="form-control input-group-lg reg_name"
+                   ng-model="checkIn"
+                   type="text" name="checkin" title="Check In"
+                   placeholder="Check In">
+        </div>
+        <div class="col-sm-3">
+            <label for="checkout" class="sr-only"></label>
+            <input id="checkout" class="form-control input-group-lg reg_name"
+                   ng-model="checkOut"
+                   type="text" name="checkout" title="Check Out"
+                   placeholder="Check Out">
+        </div>
+        <div class="col-sm-3">
+            <label for="min-availability-percentage" class="sr-only"></label>
+            <input id="min-availability-percentage" class="form-control input-group-lg reg_name"
+                   ng-model="minAvailabilityRatio"
+                   type="text" name="min-availability-percentage" title="Min Availability"
+                   placeholder="Minimal Availability">
+        </div>
+        <div class="col-sm-3">
+            <button type="button" class="btn btn-primary btn-lg" ng-click="goToRooms()">Let's go ></button>
+        </div>
+    </div>
+</form>
+
+<ui-gmap-google-map class="container-full-width" center="map.center" zoom="map.zoom" events="map.events">
+    <ui-gmap-marker coords="location" idkey="location" draggable="true" />
+    <ui-gmap-circle center="location" radius="radius" clickable="false" />
+</ui-gmap-google-map>

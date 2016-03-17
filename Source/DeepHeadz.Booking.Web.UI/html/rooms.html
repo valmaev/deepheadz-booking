@@ -1,0 +1,49 @@
+<div class="text-center">
+    <h2>We found {{totalNumberOfRooms}} rooms for {{totalNumberOfGuests}} people with {{averageAvailability  * 100 | number :1}}% average availability</h2>
+    <h3>Here should be very complicated and customizable search by amenities, likes, possibility to open windows and stuff</h3>
+    <div ng-repeat="(maxGuests, roo) in rooms">
+        <h2>Max Guests: {{maxGuests}}</h2>
+
+        <div ng-repeat="r in roo track by r.room.id" id="slides-control">
+            <h4>{{r.room.title}}</h4>
+            <button type="button" class="btn btn-primary btn-lg">Email to Helga</button>
+            <button type="button" class="btn btn-primary btn-lg">Send RFP</button>
+            <button type="button" class="btn btn-primary btn-lg">Book by date ranges</button>
+            <button type="button" class="btn btn-primary btn-lg">Add to living plan</button>
+
+            <ul class="text-left">
+                <li>likes: 42</li>
+                <li>description: {{r.room.description}}</li>
+                <li>type: {{r.room.type}}</li>
+                <li>subtype: {{r.room.subtype}}</li>
+                <li>surface: {{r.room.surface}}</li>
+                <li>floor: {{r.room.floor}}</li>
+                <li>numberOfRooms: {{r.room.numberOfRooms}}</li>
+                <li>numberOfBathrooms: {{r.room.numberOfBathrooms}}</li>
+                <li>numberOfDoubleBeds: {{r.room.numberOfDoubleBeds}}</li>
+                <li>numberOfSofaBeds: {{r.room.numberOfSofaBeds}}</li>
+                <li>minStayInDays: {{r.room.minStayInDays}}</li>
+                <li>maxGuests: {{r.room.maxGuests}}</li>
+                <li>amenities: {{r.room.amenities}}</li>
+                <li>services: {{r.room.services}}</li>
+                <li>smokingAllowed: {{r.room.smokingAllowed}}</li>
+                <li>petsAllowed: {{r.room.petsAllowed}}</li>
+                <li>checkInTime: {{r.room.checkInTime}}</li>
+                <li>checkOutTime: {{r.room.checkOutTime}}</li>
+                <li>nearestFoodShop: 120 m</li>
+                <li>nearestDrugstore: 55 m</li>
+                <li>nearestNightClub: 12 m</li>
+                <li>nearestSubwayStation: 155 m</li>
+                <li>distanceToJob: 1500 m</li>
+            </ul>
+            <h5>Availability Ratio: {{r.availability.ratio * 100 | number :1 }}%</h5>
+            <div>
+                <carousel interval="0">
+                    <slide ng-repeat="image in getImages(r.room) track by image.index" index="image.index">
+                        <img ng-src="{{image.image}}" style="margin:auto;">
+                    </slide>
+                </carousel>
+            </div>
+        </div>
+    </div>
+</div>

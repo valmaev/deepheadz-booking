@@ -1,0 +1,31 @@
+#logo {
+    background: none;
+    border: none;
+    line-height: 1;
+    font-size: 12px;
+}
+
+.angular-google-map-container {
+    height: 600px;
+}
+
+.container-full-width {
+    position: absolute;
+    left: 0;
+    right: 0;
+}
+
+/*#slides_control > div{*/
+    /*height: 200px;*/
+/*}*/
+/*img{*/
+    /*margin:auto;*/
+    /*width: 400px;*/
+/*}*/
+/*#slides_control {*/
+    /*position:absolute;*/
+    /*width: 400px;*/
+    /*left:50%;*/
+    /*top:20px;*/
+    /*margin-left:-200px;*/
+/*}*/

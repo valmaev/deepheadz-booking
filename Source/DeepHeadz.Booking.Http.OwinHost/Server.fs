@@ -7,7 +7,9 @@ open System.IO
 open System.Reflection
 open System.Web.Http
 open Microsoft.Owin.Cors
+open Microsoft.Owin.FileSystems
 open Microsoft.Owin.Hosting
+open Microsoft.Owin.StaticFiles
 open DeepHeadz.Booking.Core
 open DeepHeadz.Booking.Core.Domain
 open DeepHeadz.Booking.Data.FileStore
@@ -25,7 +27,10 @@ type Startup() =
         let config = 
             new HttpConfiguration()
             |> Configure (roomStore :> Room seq) roomAvailabilities
-        app.UseCors(CorsOptions.AllowAll).UseWebApi(config) |> ignore
+        let fileSystem = PhysicalFileSystem "./DeepHeadz.Booking.Web.UI"
+        app.UseCors(CorsOptions.AllowAll)
+           .UseFileServer(FileServerOptions(FileSystem = fileSystem))
+           .UseWebApi(config) |> ignore
 
 let rec printException (ex: Exception) =
     printfn

@@ -19,6 +19,27 @@ Project("{f2a71f9b-5d33-465a-a702-920d77279786}") = "DeepHeadz.Booking.Roomorama
 EndProject
 Project("{f2a71f9b-5d33-465a-a702-920d77279786}") = "DeepHeadz.Booking.Http", "Source\DeepHeadz.Booking.Http\DeepHeadz.Booking.Http.fsproj", "{CACD8FFE-0FE3-4EA1-B8CB-4A2528F10B1D}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DeepHeadz.Booking.Web.UI", "DeepHeadz.Booking.Web.UI", "{13EE894F-18EB-4C37-A659-D0E47D21779C}"
+	ProjectSection(SolutionItems) = preProject
+		Source\DeepHeadz.Booking.Web.UI\index.html = Source\DeepHeadz.Booking.Web.UI\index.html
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "css", "css", "{ACB3488E-7D33-4AED-85E5-FD88ADA3B2CD}"
+	ProjectSection(SolutionItems) = preProject
+		Source\DeepHeadz.Booking.Web.UI\css\styles.css = Source\DeepHeadz.Booking.Web.UI\css\styles.css
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "js", "js", "{2EEF0E29-959E-4BBF-9810-972540B3B04C}"
+	ProjectSection(SolutionItems) = preProject
+		Source\DeepHeadz.Booking.Web.UI\js\app.js = Source\DeepHeadz.Booking.Web.UI\js\app.js
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "html", "html", "{D5EB5754-A480-4A05-AB37-2B3F433122CC}"
+	ProjectSection(SolutionItems) = preProject
+		Source\DeepHeadz.Booking.Web.UI\html\rooms.html = Source\DeepHeadz.Booking.Web.UI\html\rooms.html
+		Source\DeepHeadz.Booking.Web.UI\html\locations.html = Source\DeepHeadz.Booking.Web.UI\html\locations.html
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -62,6 +83,10 @@ Global
 		{438C4B9D-517F-4029-ACFD-D3A47EAEE2D8} = {B7C31FCB-38CD-46CB-9CB6-E9708A5A0C45}
 		{F59775B9-E9B6-449E-A540-9A881F669238} = {B773EEB3-6A3E-4312-BF5B-EC8AE9EAD3A5}
 		{CACD8FFE-0FE3-4EA1-B8CB-4A2528F10B1D} = {B773EEB3-6A3E-4312-BF5B-EC8AE9EAD3A5}
+		{13EE894F-18EB-4C37-A659-D0E47D21779C} = {B773EEB3-6A3E-4312-BF5B-EC8AE9EAD3A5}
+		{ACB3488E-7D33-4AED-85E5-FD88ADA3B2CD} = {13EE894F-18EB-4C37-A659-D0E47D21779C}
+		{2EEF0E29-959E-4BBF-9810-972540B3B04C} = {13EE894F-18EB-4C37-A659-D0E47D21779C}
+		{D5EB5754-A480-4A05-AB37-2B3F433122CC} = {13EE894F-18EB-4C37-A659-D0E47D21779C}
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		version = 

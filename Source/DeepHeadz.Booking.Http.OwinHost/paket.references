@@ -1,3 +1,4 @@
 ﻿FSharp.Core
 Microsoft.AspNet.WebApi.OwinSelfHost
 Microsoft.Owin.Cors
+Microsoft.Owin.StaticFiles
