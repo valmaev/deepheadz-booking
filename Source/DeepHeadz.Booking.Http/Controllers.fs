@@ -5,6 +5,7 @@ open System.Collections.Generic
 open System.Linq
 open System.Net
 open System.Net.Http
+open System.Reflection
 open System.Web.Http
 open DeepHeadz.Booking.Core
 open DeepHeadz.Booking.Core.Domain
@@ -13,7 +14,10 @@ open DeepHeadz.Booking.Http.Requests
 
 type HomeController() =
     inherit ApiController()
-    member x.Get() = sprintf "Welcome to %s API!" (x.GetType().Namespace)
+    member x.Get() = 
+        sprintf "Welcome to %s API v.%s!" 
+            (x.GetType().Namespace) 
+            (Assembly.GetExecutingAssembly().GetName().Version.ToString())
 
 type RoomsController
     (rooms: Room seq, 
