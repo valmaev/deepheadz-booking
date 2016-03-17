@@ -35,7 +35,7 @@ var app = angular.module('deepheadz', ['ngRoute', 'ui.bootstrap', 'uiGmapgoogle-
     })
     .controller('roomsController', function($scope, $http, $routeParams) {
         $http.get(
-            '//localhost:8080/api/rooms',
+            '/../api/rooms',
             {
                 params: {
                     longitude: $routeParams.longitude,
