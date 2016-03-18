@@ -2,6 +2,6 @@
     "name": "deepheadz-booking",
     "description": "Room-oriented service for creating living plans for any-sized groups of people.",
     "buildpacks": [ 
-    	{ url: "https://github.com/SuaveIO/mono-script-buildpack" } 
+    	{ "url": "https://github.com/SuaveIO/mono-script-buildpack" } 
     ]
 }
